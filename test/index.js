@@ -16,7 +16,7 @@ describe('WIF', function () {
     })
   })
 
-  describe('decode', function () {
+  describe('decode/decodeRaw', function () {
     fixtures.valid.forEach(function (f) {
       it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
         var actual = wif.decode(f.version, f.WIF)
@@ -32,19 +32,6 @@ describe('WIF', function () {
         assert.throws(function () {
           wif.decode(f.version, f.WIF)
         }, new RegExp(f.exception))
-      })
-    })
-  })
-
-  describe('decodeRaw', function () {
-    fixtures.valid.forEach(function (f) {
-      it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
-        var buffer = bs58check.decode(f.WIF)
-        var actual = wif.decodeRaw(f.version, buffer)
-
-        assert.strictEqual(actual.version, f.version)
-        assert.strictEqual(actual.d.toString('hex'), f.d)
-        assert.strictEqual(actual.compressed, f.compressed)
       })
     })
   })
