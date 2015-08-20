@@ -26,6 +26,14 @@ describe('WIF', function () {
         assert.strictEqual(actual.compressed, f.compressed)
       })
     })
+
+    fixtures.invalid.decode.forEach(function (f) {
+      it('throws ' + f.exception + ' for ' + f.WIF, function () {
+        assert.throws(function () {
+          wif.decode(f.version, f.WIF)
+        }, new RegExp(f.exception))
+      })
+    })
   })
 
   describe('decodeRaw', function () {

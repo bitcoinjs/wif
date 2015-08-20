@@ -1,7 +1,7 @@
 var bs58check = require('bs58check')
 
 function decodeRaw (version, buffer) {
-  if (buffer[0] !== version) throw new Error('Invalid network version 0x' + buffer[0].toString())
+  if (buffer[0] !== version) throw new Error('Invalid network version')
 
   // compression flag?
   if (buffer.length === 34) {
@@ -16,7 +16,7 @@ function decodeRaw (version, buffer) {
   }
 
   // no compression flag
-  if (buffer.length !== 33) throw new Error('Invalid payload length')
+  if (buffer.length !== 33) throw new Error('Invalid WIF length')
 
   return {
     version: buffer[0],
