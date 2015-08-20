@@ -1,6 +1,6 @@
-# WIF
+# WIF.js
 
-[![TRAVIS](https://secure.travis-ci.org/dcousens/WIF.png)](http://travis-ci.org/dcousens/WIF)
+[![TRAVIS](https://secure.travis-ci.org/bitcoinjs/WIF.png)](http://travis-ci.org/bitcoinjs/WIF)
 [![NPM](http://img.shields.io/npm/v/WIF.svg)](https://www.npmjs.org/package/WIF)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
