@@ -1,7 +1,6 @@
 /* global describe, it */
 
 var assert = require('assert')
-var bs58check = require('bs58check')
 var wif = require('../')
 var fixtures = require('./fixtures')
 
