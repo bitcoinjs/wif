@@ -1,0 +1,53 @@
+{
+  "name": "wif",
+  "version": "0.0.1",
+  "description": "Bitcoin Wallet Import Format (WIF) encoding module",
+  "author": "Daniel Cousens",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dcousens/wif.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dcousens/wif/issues"
+  },
+  "homepage": "https://github.com/dcousens/wif",
+  "keywords": [
+    "bitcoin",
+    "base58",
+    "base58check",
+    "encoding",
+    "wif"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "coverage": "mocha --require blanket -R travis-cov",
+    "coverage-local": "mocha --require blanket -R html-cov",
+    "standard": "standard",
+    "test": "npm run standard && npm run unit",
+    "unit": "mocha"
+  },
+  "config": {
+    "blanket": {
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
+    },
+    "travis-cov": {
+      "threshold": 100
+    }
+  },
+  "dependencies": {
+    "bs58check": "^1.0.6"
+  },
+  "devDependencies": {
+    "blanket": "*",
+    "mocha": "*",
+    "standard": "*",
+    "travis-cov": "*"
+  }
+}
