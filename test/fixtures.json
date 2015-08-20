@@ -53,23 +53,23 @@
     "decode": [
       {
         "exception": "Invalid network version",
-        "version": 5,
-        "WIF": "L5oLkpV3aqBjhki6LmvChTCV6odsp4SXM6FfU2Gppt5kFLaHLuZ9"
+        "version": 128,
+        "WIF": "92Qba5hnyWSn5Ffcka56yMQauaWY6ZLd91Vzxbi4a9CCetaHtYj"
       },
       {
         "exception": "Invalid compression flag",
-        "version": 5,
-        "WIF": "ju9rooVsmagsb4qmNyTysUSFB1GB6MdpD7eoGjUTPmZRAApJxRz"
+        "version": 128,
+        "WIF": "KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sfZr2ym"
       },
       {
         "exception": "Invalid WIF length",
-        "version": 5,
-        "WIF": "7ZEtRQLhCsDQrd6ZKfmcESdXgas8ggZPN24ByEi5ey6VJW"
+        "version": 128,
+        "WIF": "3tq8Vmhh9SN5XhjTGSWgx8iKk59XbKG6UH4oqpejRuJhfYD"
       },
       {
         "exception": "Invalid WIF length",
-        "version": 5,
-        "WIF": "5qibUKwsnMo1qDiNp3prGaQkD2JfVJa8F8Na87H2CkMHvuVg6uKhw67Rh"
+        "version": 128,
+        "WIF": "38uMpGARR2BJy5p4dNFKYg9UsWNoBtkpbdrXDjmfvz8krCtw3T1W92ZDSR"
       }
     ]
   }
