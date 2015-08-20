@@ -44,5 +44,6 @@ function encode (version, d, compressed) {
 
 module.exports = {
   decode: decode,
+  decodeRaw: decodeRaw,
   encode: encode
 }

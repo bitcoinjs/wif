@@ -1,6 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert')
+var bs58check = require('bs58check')
 var wif = require('../')
 var fixtures = require('./fixtures')
 
@@ -19,6 +20,19 @@ describe('WIF', function () {
     fixtures.valid.forEach(function (f) {
       it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
         var actual = wif.decode(f.version, f.WIF)
+
+        assert.strictEqual(actual.version, f.version)
+        assert.strictEqual(actual.d.toString('hex'), f.d)
+        assert.strictEqual(actual.compressed, f.compressed)
+      })
+    })
+  })
+
+  describe('decodeRaw', function () {
+    fixtures.valid.forEach(function (f) {
+      it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
+        var buffer = bs58check.decode(f.WIF)
+        var actual = wif.decodeRaw(f.version, buffer)
 
         assert.strictEqual(actual.version, f.version)
         assert.strictEqual(actual.d.toString('hex'), f.d)
