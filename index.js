@@ -29,7 +29,7 @@ function decode (version, string) {
   return decodeRaw(version, bs58check.decode(string))
 }
 
-function encode (version, d, compressed) {
+function encodeRaw (version, d, compressed) {
   var buffer = new Buffer(compressed ? 34 : 33)
 
   buffer.writeUInt8(version, 0)
@@ -39,11 +39,16 @@ function encode (version, d, compressed) {
     buffer[33] = 0x01
   }
 
-  return bs58check.encode(buffer)
+  return buffer
+}
+
+function encode (version, d, compressed) {
+  return bs58check.encode(encodeRaw(version, d, compressed))
 }
 
 module.exports = {
   decode: decode,
   decodeRaw: decodeRaw,
-  encode: encode
+  encode: encode,
+  encodeRaw: encodeRaw
 }

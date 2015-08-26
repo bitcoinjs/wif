@@ -5,7 +5,7 @@ var wif = require('../')
 var fixtures = require('./fixtures')
 
 describe('WIF', function () {
-  describe('encode', function () {
+  describe('encode/encodeRaw', function () {
     fixtures.valid.forEach(function (f) {
       it('returns ' + f.WIF + ' for ' + f.d.slice(0, 20) + '... (' + f.version + ')', function () {
         var actual = wif.encode(f.version, new Buffer(f.d, 'hex'), f.compressed)
