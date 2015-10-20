@@ -6,12 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcousens/wif.git"
+    "url": "https://github.com/bitcoinjs/wif.git"
   },
   "bugs": {
-    "url": "https://github.com/dcousens/wif/issues"
+    "url": "https://github.com/bitcoinjs/wif/issues"
   },
-  "homepage": "https://github.com/dcousens/wif",
+  "homepage": "https://github.com/bitcoinjs/wif",
   "keywords": [
     "bitcoin",
     "base58",
