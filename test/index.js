@@ -18,10 +18,10 @@ describe('WIF', function () {
   describe('decode/decodeRaw', function () {
     fixtures.valid.forEach(function (f) {
       it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
-        var actual = wif.decode(f.version, f.WIF)
+        var actual = wif.decode(f.WIF, f.version)
 
         assert.strictEqual(actual.version, f.version)
-        assert.strictEqual(actual.d.toString('hex'), f.d)
+        assert.strictEqual(actual.buffer.toString('hex'), f.d)
         assert.strictEqual(actual.compressed, f.compressed)
       })
     })
@@ -29,7 +29,7 @@ describe('WIF', function () {
     fixtures.invalid.decode.forEach(function (f) {
       it('throws ' + f.exception + ' for ' + f.WIF, function () {
         assert.throws(function () {
-          wif.decode(f.version, f.WIF)
+          wif.decode(f.WIF, f.version)
         }, new RegExp(f.exception))
       })
     })

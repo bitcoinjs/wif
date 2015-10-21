@@ -1,49 +1,47 @@
 var bs58check = require('bs58check')
 
-function decodeRaw (version, buffer) {
-  if (buffer[0] !== version) throw new Error('Invalid network version')
+function decodeRaw (buffer, version) {
+  // check version only if defined
+  if (version !== undefined && buffer[0] !== version) {
+    throw new Error('Invalid network version')
+  }
 
-  // compression flag?
-  if (buffer.length === 34) {
-    if (buffer[33] !== 0x01) throw new Error('Invalid compression flag')
-
-    // truncate the version byte/compression flag
+  if (buffer.length === 33 || (buffer.length === 34 && buffer[33] === 0x01)) {
     return {
       version: buffer[0],
-      d: buffer.slice(1, -1),
-      compressed: true
+      buffer: buffer.slice(1, 33),
+      compressed: buffer.length === 34
     }
   }
 
-  // no compression flag
-  if (buffer.length !== 33) throw new Error('Invalid WIF length')
-
-  return {
-    version: buffer[0],
-    d: buffer.slice(1),
-    compressed: false
+  // invalid compression flag
+  if (buffer.length === 34) {
+    throw new Error('Invalid compression flag')
   }
+
+  // invalid length
+  throw new Error('Invalid WIF length')
 }
 
-function decode (version, string) {
-  return decodeRaw(version, bs58check.decode(string))
+function decode (string, version) {
+  return decodeRaw(bs58check.decode(string), version)
 }
 
-function encodeRaw (version, d, compressed) {
-  var buffer = new Buffer(compressed ? 34 : 33)
+function encodeRaw (version, buffer, compressed) {
+  var result = new Buffer(compressed ? 34 : 33)
 
-  buffer.writeUInt8(version, 0)
-  d.copy(buffer, 1)
+  result.writeUInt8(version, 0)
+  buffer.copy(result, 1)
 
   if (compressed) {
-    buffer[33] = 0x01
+    result[33] = 0x01
   }
 
-  return buffer
+  return result
 }
 
-function encode (version, d, compressed) {
-  return bs58check.encode(encodeRaw(version, d, compressed))
+function encode (version, buffer, compressed) {
+  return bs58check.encode(encodeRaw(version, buffer, compressed))
 }
 
 module.exports = {
