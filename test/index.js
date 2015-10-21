@@ -34,4 +34,13 @@ describe('WIF', function () {
       })
     })
   })
+
+  describe('decode/encode', function () {
+    fixtures.valid.forEach(function (f) {
+      it(f.WIF, function () {
+        var actual = wif.encode(wif.decode(f.WIF, f.version))
+        assert.strictEqual(actual, f.WIF)
+      })
+    })
+  })
 })

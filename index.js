@@ -41,6 +41,12 @@ function encodeRaw (version, buffer, compressed) {
 }
 
 function encode (version, buffer, compressed) {
+  if (typeof version !== 'number') {
+    compressed = version.compressed
+    buffer = version.buffer
+    version = version.version
+  }
+
   return bs58check.encode(encodeRaw(version, buffer, compressed))
 }
 
