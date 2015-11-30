@@ -13,15 +13,15 @@ Bitcoin Wallet Import Format encoding/decoding module.
 ``` javascript
 var wif = require('wif')
 
-var pkBuffer = new Buffer('0000000000000000000000000000000000000000000000000000000000000001', 'hex')
+var privateKey = new Buffer('0000000000000000000000000000000000000000000000000000000000000001', 'hex')
 
-var key = wif.encode(128, pkBuffer, true)
+var key = wif.encode(128, privateKey, true)
 // => KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sVHnoWn
 
 var obj = wif.decode(key)
 // => {
 //	version: 128,
-//	buffer: <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01>,
+//	privateKey: <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01>,
 //	compressed: true
 //}
 
