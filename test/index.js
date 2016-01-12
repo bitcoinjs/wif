@@ -7,8 +7,9 @@ var fixtures = require('./fixtures')
 describe('WIF', function () {
   describe('encode/encodeRaw', function () {
     fixtures.valid.forEach(function (f) {
-      it('returns ' + f.WIF + ' for ' + f.d.slice(0, 20) + '... (' + f.version + ')', function () {
-        var actual = wif.encode(f.version, new Buffer(f.d, 'hex'), f.compressed)
+      it('returns ' + f.WIF + ' for ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')', function () {
+        var privateKey = new Buffer(f.privateKeyHex, 'hex')
+        var actual = wif.encode(f.version, privateKey, f.compressed)
 
         assert.strictEqual(actual, f.WIF)
       })
@@ -17,11 +18,11 @@ describe('WIF', function () {
 
   describe('decode/decodeRaw', function () {
     fixtures.valid.forEach(function (f) {
-      it('returns ' + f.d.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
-        var actual = wif.decode(f.version, f.WIF)
+      it('returns ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
+        var actual = wif.decode(f.WIF, f.version)
 
         assert.strictEqual(actual.version, f.version)
-        assert.strictEqual(actual.d.toString('hex'), f.d)
+        assert.strictEqual(actual.privateKey.toString('hex'), f.privateKeyHex)
         assert.strictEqual(actual.compressed, f.compressed)
       })
     })
@@ -29,8 +30,17 @@ describe('WIF', function () {
     fixtures.invalid.decode.forEach(function (f) {
       it('throws ' + f.exception + ' for ' + f.WIF, function () {
         assert.throws(function () {
-          wif.decode(f.version, f.WIF)
+          wif.decode(f.WIF, f.version)
         }, new RegExp(f.exception))
+      })
+    })
+  })
+
+  describe('decode/encode', function () {
+    fixtures.valid.forEach(function (f) {
+      it(f.WIF, function () {
+        var actual = wif.encode(wif.decode(f.WIF, f.version))
+        assert.strictEqual(actual, f.WIF)
       })
     })
   })
