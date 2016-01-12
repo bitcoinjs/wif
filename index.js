@@ -2,25 +2,28 @@ var bs58check = require('bs58check')
 
 function decodeRaw (buffer, version) {
   // check version only if defined
-  if (version !== undefined && buffer[0] !== version) {
-    throw new Error('Invalid network version')
-  }
+  if (version !== undefined && buffer[0] !== version) throw new Error('Invalid network version')
 
-  if (buffer.length === 33 || (buffer.length === 34 && buffer[33] === 0x01)) {
+  // uncompressed
+  if (buffer.length === 33) {
     return {
       version: buffer[0],
       privateKey: buffer.slice(1, 33),
-      compressed: buffer.length === 34
+      compressed: false
     }
   }
 
-  // invalid compression flag
-  if (buffer.length === 34) {
-    throw new Error('Invalid compression flag')
-  }
-
   // invalid length
-  throw new Error('Invalid WIF length')
+  if (buffer.length !== 34) throw new Error('Invalid WIF length')
+
+  // invalid compression flag
+  if (buffer[33] !== 0x01) throw new Error('Invalid compression flag')
+
+  return {
+    version: buffer[0],
+    privateKey: buffer.slice(1, 33),
+    compressed: true
+  }
 }
 
 function decode (string, version) {
