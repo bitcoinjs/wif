@@ -26,10 +26,6 @@ function decodeRaw (buffer, version) {
   }
 }
 
-function decode (string, version) {
-  return decodeRaw(bs58check.decode(string), version)
-}
-
 function encodeRaw (version, privateKey, compressed) {
   var result = new Buffer(compressed ? 34 : 33)
 
@@ -43,14 +39,20 @@ function encodeRaw (version, privateKey, compressed) {
   return result
 }
 
-function encode (version, privateKey, compressed) {
-  if (typeof version !== 'number') {
-    compressed = version.compressed
-    privateKey = version.privateKey
-    version = version.version
-  }
+function decode (string, version) {
+  return decodeRaw(bs58check.decode(string), version)
+}
 
-  return bs58check.encode(encodeRaw(version, privateKey, compressed))
+function encode (version, privateKey, compressed) {
+  if (typeof version === 'number') return bs58check.encode(encodeRaw(version, privateKey, compressed))
+
+  return bs58check.encode(
+    encodeRaw(
+      version.version,
+      version.privateKey,
+      version.compressed
+    )
+  )
 }
 
 module.exports = {
