@@ -1,22 +1,16 @@
 sudo: false
-os: linux
 language: node_js
 node_js:
-  - "0.10"
   - "0.12"
-  - "iojs"
   - "4"
   - "5"
   - "6"
-env:
-  matrix:
-    - TEST_SUITE=unit
 matrix:
   include:
-    - os: linux
-      node_js: "4"
-      env: TEST_SUITE=coverage
-    - os: linux
-      node_js: "4"
+    - node_js: "6"
       env: TEST_SUITE=standard
-script: "npm run-script $TEST_SUITE"
+    - node_js: "6"
+      env: TEST_SUITE=coverage
+env:
+  - TEST_SUITE=unit
+script: npm run-script $TEST_SUITE
