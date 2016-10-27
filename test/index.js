@@ -1,47 +1,42 @@
-/* global describe, it */
-
-var assert = require('assert')
 var wif = require('../')
 var fixtures = require('./fixtures')
+var tape = require('tape')
 
-describe('WIF', function () {
-  describe('encode/encodeRaw', function () {
-    fixtures.valid.forEach(function (f) {
-      it('returns ' + f.WIF + ' for ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')', function () {
-        var privateKey = new Buffer(f.privateKeyHex, 'hex')
-        var actual = wif.encode(f.version, privateKey, f.compressed)
+fixtures.valid.forEach(function (f) {
+  tape('encode/encodeRaw returns ' + f.WIF + ' for ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')', function (t) {
+    t.plan(1)
 
-        assert.strictEqual(actual, f.WIF)
-      })
-    })
+    var privateKey = new Buffer(f.privateKeyHex, 'hex')
+    var actual = wif.encode(f.version, privateKey, f.compressed)
+    t.equal(actual, f.WIF)
   })
+})
 
-  describe('decode/decodeRaw', function () {
-    fixtures.valid.forEach(function (f) {
-      it('returns ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function () {
-        var actual = wif.decode(f.WIF, f.version)
+fixtures.valid.forEach(function (f) {
+  tape('decode/decodeRaw returns ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')' + ' for ' + f.WIF, function (t) {
+    t.plan(3)
 
-        assert.strictEqual(actual.version, f.version)
-        assert.strictEqual(actual.privateKey.toString('hex'), f.privateKeyHex)
-        assert.strictEqual(actual.compressed, f.compressed)
-      })
-    })
-
-    fixtures.invalid.decode.forEach(function (f) {
-      it('throws ' + f.exception + ' for ' + f.WIF, function () {
-        assert.throws(function () {
-          wif.decode(f.WIF, f.version)
-        }, new RegExp(f.exception))
-      })
-    })
+    var actual = wif.decode(f.WIF, f.version)
+    t.equal(actual.version, f.version)
+    t.equal(actual.privateKey.toString('hex'), f.privateKeyHex)
+    t.equal(actual.compressed, f.compressed)
   })
+})
 
-  describe('decode/encode', function () {
-    fixtures.valid.forEach(function (f) {
-      it(f.WIF, function () {
-        var actual = wif.encode(wif.decode(f.WIF, f.version))
-        assert.strictEqual(actual, f.WIF)
-      })
-    })
+fixtures.invalid.decode.forEach(function (f) {
+  tape('throws ' + f.exception + ' for ' + f.WIF, function (t) {
+    t.plan(1)
+    t.throws(function () {
+      wif.decode(f.WIF, f.version)
+    }, new RegExp(f.exception))
+  })
+})
+
+fixtures.valid.forEach(function (f) {
+  tape('decode/encode for ' + f.WIF, function (t) {
+    t.plan(1)
+
+    var actual = wif.encode(wif.decode(f.WIF, f.version))
+    t.equal(actual, f.WIF)
   })
 })
