@@ -1,5 +1,4 @@
 # WIF
-
 [![TRAVIS](https://secure.travis-ci.org/bitcoinjs/wif.png)](http://travis-ci.org/bitcoinjs/wif)
 [![NPM](http://img.shields.io/npm/v/wif.svg)](https://www.npmjs.org/package/wif)
 
