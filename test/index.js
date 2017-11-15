@@ -1,12 +1,13 @@
 var wif = require('../')
 var fixtures = require('./fixtures')
 var tape = require('tape')
+var Buffer = require('safe-buffer').Buffer
 
 fixtures.valid.forEach(function (f) {
   tape('encode/encodeRaw returns ' + f.WIF + ' for ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')', function (t) {
     t.plan(1)
 
-    var privateKey = new Buffer(f.privateKeyHex, 'hex')
+    var privateKey = Buffer.from(f.privateKeyHex, 'hex')
     var actual = wif.encode(f.version, privateKey, f.compressed)
     t.equal(actual, f.WIF)
   })

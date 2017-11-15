@@ -33,11 +33,12 @@
     "unit": "tape test/*.js"
   },
   "dependencies": {
-    "bs58check": "<3.0.0"
+    "bs58check": "<3.0.0",
+    "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
     "nyc": "^6.4.0",
-    "standard": "^9.0.0",
+    "standard": "^10.0.3",
     "tape": "^4.6.2"
   }
 }

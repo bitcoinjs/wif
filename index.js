@@ -1,4 +1,5 @@
 var bs58check = require('bs58check')
+var Buffer = require('safe-buffer').Buffer
 
 function decodeRaw (buffer, version) {
   // check version only if defined
@@ -27,7 +28,7 @@ function decodeRaw (buffer, version) {
 }
 
 function encodeRaw (version, privateKey, compressed) {
-  var result = new Buffer(compressed ? 34 : 33)
+  var result = Buffer.alloc(compressed ? 34 : 33)
 
   result.writeUInt8(version, 0)
   privateKey.copy(result, 1)
