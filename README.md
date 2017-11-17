@@ -22,6 +22,7 @@ var obj = wif.decode(key)
 //	compressed: true
 //}
 
+// alternative syntax
 wif.encode(obj)
 // => KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sVHnoWn
 ```

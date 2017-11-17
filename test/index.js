@@ -24,6 +24,15 @@ fixtures.valid.forEach(function (f) {
   })
 })
 
+fixtures.invalid.encode.forEach(function (f) {
+  tape('throws ' + f.exception + ' for ' + f.privateKeyHex, function (t) {
+    t.plan(1)
+    t.throws(function () {
+      wif.encode(f.version, Buffer.from(f.privateKeyHex, 'hex'))
+    }, new RegExp(f.exception))
+  })
+})
+
 fixtures.invalid.decode.forEach(function (f) {
   tape('throws ' + f.exception + ' for ' + f.WIF, function (t) {
     t.plan(1)
