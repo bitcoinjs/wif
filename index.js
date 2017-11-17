@@ -28,8 +28,9 @@ function decodeRaw (buffer, version) {
 }
 
 function encodeRaw (version, privateKey, compressed) {
-  var result = Buffer.alloc(compressed ? 34 : 33)
+  if (privateKey.length !== 32) throw new TypeError('Invalid privateKey length')
 
+  var result = Buffer.alloc(compressed ? 34 : 33)
   result.writeUInt8(version, 0)
   privateKey.copy(result, 1)
 

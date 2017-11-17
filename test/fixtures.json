@@ -50,6 +50,13 @@
     }
   ],
   "invalid": {
+    "encode": [
+      {
+        "exception": "Invalid privateKey length",
+        "version": 128,
+        "privateKeyHex": "fffffffffffeba"
+      }
+    ],
     "decode": [
       {
         "exception": "Invalid network version",
