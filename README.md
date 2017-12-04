@@ -22,6 +22,9 @@ var obj = wif.decode(key)
 //	compressed: true
 //}
 
+wif.decode(key, 0x09)
+// => Error: Invalid network version
+
 // alternative syntax
 wif.encode(obj)
 // => KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sVHnoWn
