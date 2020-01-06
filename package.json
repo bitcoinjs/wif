@@ -37,8 +37,8 @@
     "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
-    "nyc": "^6.4.0",
-    "standard": "^10.0.3",
+    "nyc": "^15.0.0",
+    "standard": "^14.3.1",
     "tape": "^4.6.2"
   }
 }
