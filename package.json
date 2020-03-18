@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "nyc": "^15.0.0",
-    "standard": "^14.3.1",
-    "tape": "^4.6.2"
+    "standard": "^14.3.3",
+    "tape": "^4.13.2"
   }
 }
