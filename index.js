@@ -1,5 +1,4 @@
 var bs58check = require('bs58check')
-var Buffer = require('safe-buffer').Buffer
 
 function decodeRaw (buffer, version) {
   // check version only if defined
@@ -30,9 +29,10 @@ function decodeRaw (buffer, version) {
 function encodeRaw (version, privateKey, compressed) {
   if (privateKey.length !== 32) throw new TypeError('Invalid privateKey length')
 
-  var result = Buffer.alloc(compressed ? 34 : 33)
-  result.writeUInt8(version, 0)
-  privateKey.copy(result, 1)
+  var result = new Uint8Array(compressed ? 34 : 33)
+  var view = new DataView(result.buffer)
+  view.setUint8(0, version)
+  result.set(privateKey, 1)
 
   if (compressed) {
     result[33] = 0x01
