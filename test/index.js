@@ -1,13 +1,13 @@
 var wif = require('../')
 var fixtures = require('./fixtures')
 var tape = require('tape')
-var Buffer = require('safe-buffer').Buffer
+var utils = require('uint8array-tools')
 
 fixtures.valid.forEach(function (f) {
   tape('encode/encodeRaw returns ' + f.WIF + ' for ' + f.privateKeyHex.slice(0, 20) + '... (' + f.version + ')', function (t) {
     t.plan(1)
 
-    var privateKey = Buffer.from(f.privateKeyHex, 'hex')
+    var privateKey = utils.fromHex(f.privateKeyHex)
     var actual = wif.encode(f.version, privateKey, f.compressed)
     t.equal(actual, f.WIF)
   })
@@ -19,7 +19,7 @@ fixtures.valid.forEach(function (f) {
 
     var actual = wif.decode(f.WIF, f.version)
     t.equal(actual.version, f.version)
-    t.equal(actual.privateKey.toString('hex'), f.privateKeyHex)
+    t.equal(utils.toHex(actual.privateKey), f.privateKeyHex)
     t.equal(actual.compressed, f.compressed)
   })
 })
@@ -28,7 +28,7 @@ fixtures.invalid.encode.forEach(function (f) {
   tape('throws ' + f.exception + ' for ' + f.privateKeyHex, function (t) {
     t.plan(1)
     t.throws(function () {
-      wif.encode(f.version, Buffer.from(f.privateKeyHex, 'hex'))
+      wif.encode(f.version, utils.fromHex(f.privateKeyHex))
     }, new RegExp(f.exception))
   })
 })
