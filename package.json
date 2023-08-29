@@ -1,6 +1,6 @@
 {
   "name": "wif",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Bitcoin Wallet Import Format (WIF) decoding/encoding module",
   "author": "Daniel Cousens",
   "license": "MIT",
@@ -25,6 +25,9 @@
     "wif"
   ],
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "coverage-report": "nyc report --reporter=lcov",
     "coverage": "nyc --check-coverage --branches 90 --functions 90 npm run unit",
