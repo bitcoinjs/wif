@@ -1,6 +1,12 @@
-var bs58check = require('bs58check')
+import bs58Check from 'bs58check'
 
-function decodeRaw (buffer, version) {
+export interface WIF {
+  version: number
+  privateKey: Uint8Array
+  compressed: boolean
+}
+
+export function decodeRaw (buffer: Uint8Array, version?: number): WIF {
   // check version only if defined
   if (version !== undefined && buffer[0] !== version) throw new Error('Invalid network version')
 
@@ -26,11 +32,11 @@ function decodeRaw (buffer, version) {
   }
 }
 
-function encodeRaw (version, privateKey, compressed) {
+export function encodeRaw (version: number, privateKey: Uint8Array, compressed: boolean): Uint8Array {
   if (privateKey.length !== 32) throw new TypeError('Invalid privateKey length')
 
-  var result = new Uint8Array(compressed ? 34 : 33)
-  var view = new DataView(result.buffer)
+  const result = new Uint8Array(compressed ? 34 : 33)
+  const view = new DataView(result.buffer)
   view.setUint8(0, version)
   result.set(privateKey, 1)
 
@@ -41,25 +47,16 @@ function encodeRaw (version, privateKey, compressed) {
   return result
 }
 
-function decode (string, version) {
-  return decodeRaw(bs58check.decode(string), version)
+export function decode (str: string, version?: number): WIF {
+  return decodeRaw(bs58Check.decode(str), version)
 }
 
-function encode (version, privateKey, compressed) {
-  if (typeof version === 'number') return bs58check.encode(encodeRaw(version, privateKey, compressed))
-
-  return bs58check.encode(
+export function encode (wif: WIF): string {
+  return bs58Check.encode(
     encodeRaw(
-      version.version,
-      version.privateKey,
-      version.compressed
+      wif.version,
+      wif.privateKey,
+      wif.compressed
     )
   )
-}
-
-module.exports = {
-  decode: decode,
-  decodeRaw: decodeRaw,
-  encode: encode,
-  encodeRaw: encodeRaw
 }
