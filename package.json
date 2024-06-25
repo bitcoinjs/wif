@@ -1,6 +1,6 @@
 {
   "name": "wif",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Bitcoin Wallet Import Format (WIF) decoding/encoding module",
   "author": "Daniel Cousens",
   "type": "module",
