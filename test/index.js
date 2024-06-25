@@ -10,7 +10,7 @@ valid.forEach(function (f) {
     t.plan(1)
 
     const privateKey = fromHex(f.privateKeyHex)
-    const actual = encode(f.version, privateKey, f.compressed)
+    const actual = encode({version: f.version, privateKey, compressed: f.compressed})
     t.equal(actual, f.WIF)
   })
 })
@@ -30,7 +30,7 @@ invalid.encode.forEach(function (f) {
   tape('throws ' + f.exception + ' for ' + f.privateKeyHex, function (t) {
     t.plan(1)
     t.throws(function () {
-      encode(f.version, fromHex(f.privateKeyHex))
+      encode({version: f.version, privateKey: fromHex(f.privateKeyHex)})
     }, new RegExp(f.exception))
   })
 })
